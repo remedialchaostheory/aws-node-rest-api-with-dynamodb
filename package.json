@@ -1,0 +1,22 @@
+{
+  "name": "aws-node-rest-api-with-dynamodb",
+  "version": "1.0.0",
+  "description": "\"Serverless CRUD service exposing a REST HTTP interface\"",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remedialchaostheory/aws-node-rest-api-with-dynamodb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/remedialchaostheory/aws-node-rest-api-with-dynamodb/issues"
+  },
+  "homepage": "https://github.com/remedialchaostheory/aws-node-rest-api-with-dynamodb#readme",
+  "dependencies": {
+    "uuid": "^2.0.3"
+  }
+}
