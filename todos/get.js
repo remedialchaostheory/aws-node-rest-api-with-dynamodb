@@ -31,7 +31,7 @@
       // Response
       const response = {
         statusCode: 200,
-        body: JSON.stringify(result.item),
+        body: JSON.stringify(result.Item),
       };
 
       callback(null, response);
