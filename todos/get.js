@@ -17,6 +17,8 @@
     };
 
     dynamoDb.get(params, (error, result) => {
+
+      console.error(error);
       // Handle errors
       if (error) {
        console.error(error);
