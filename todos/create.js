@@ -7,12 +7,10 @@
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
   module.exports.create = (event, context, callback) => {
-
-    console.log(event);
-
     const timestamp = new Date().getTime();
-
     const data = JSON.parse(event.body);
+    console.log('data', data);
+
     if (typeof data.text !== 'string') {
       console.error('Invalid data');
       callback(null, {
