@@ -56,7 +56,7 @@
 
       const response = {
         statusCode: 200,
-        body: JSON.stringify(result.attributes),
+        body: JSON.stringify(result.Attributes),
       };
 
       callback(null, response);
