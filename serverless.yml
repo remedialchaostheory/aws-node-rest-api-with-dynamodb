@@ -113,7 +113,7 @@ functions:
     handler: todos/toggleCheck.toggleCheck
     events:
       - http:
-          path: todos/{id}
+          path: todos/{id}/check
           method: put
           cors: true
 
