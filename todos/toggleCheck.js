@@ -8,36 +8,38 @@
 
     const eventData = JSON.parse(event.body);
 
-    // Check for valid "check"
+    // Check for empty data
     if (!eventData.checked) {
-      console.error('\'no data.checked ->\'', 'no data.checked');
+      callback(null, {
+        statusCode: 400,
+        headers: { 'Content-Type': 'text/plain', },
+        body: 'No event data'
+      });
       return;
     }
 
-    // Check for valid "check"
+    // Check for valid data type
     if (typeof eventData.checked !== 'boolean') {
       console.log('eventData ->', eventData);
       console.log('eventData.checked ->', eventData.checked);
       console.error('Invalid eventData');
       callback(null, {
         statusCode: 400,
-        headers: {
-          'Content-Type': 'text/plain'
-        },
-        body: 'Couldn\'t update todo item check status',
+        headers: { 'Content-Type': 'text/plain' },
+        body: 'Invalid data type',
       });
       return;
     }
 
     // Get id's current checked state
-    const getParams = {
+    const ddbParams = {
       TableName: process.env.DYNAMODB_TABLE,
       Key: {
         id: event.pathParameters.id,
       },
     };
 
-    const todoItemReq = dynamoDb.get(getParams, (error, result) => {
+    const todoItemReq = dynamoDb.get(ddbParams, (error, result) => {
       // Handle errors
       if (error) {
        console.error(error);
