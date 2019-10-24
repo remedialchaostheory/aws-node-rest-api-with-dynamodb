@@ -9,8 +9,15 @@
     const timeStamp = new Date().getTime();
     const data = JSON.parse(event.body);
 
+    console.log('event.body ->', event.body);
+    console.log('data ->', data);
+
+    console.log('typeof data.text ->', typeof data.text);
+
     // Handle error
-    if (typeof data.text !== 'string' || typeof data.checked !== 'boolean') {
+    if (typeof data.text !== 'string') {
+      console.log('data ->', data);
+      console.log('data.text ->', data.text);
       console.error('Invalid data');
       callback(null, {
         statusCode: 400,
@@ -33,10 +40,9 @@
       },
       ExpressionAttributeValues: {
         ':text': data.text,
-        ':checked': data.checked,
         ':updatedAt': timeStamp,
       },
-      UpdateExpression: 'SET #todo_text = :text, checked = :checked, updatedAt = :updatedAt',
+      UpdateExpression: 'SET #todo_text = :text, updatedAt = :updatedAt',
       ReturnValues: 'ALL_NEW',
     };
 
