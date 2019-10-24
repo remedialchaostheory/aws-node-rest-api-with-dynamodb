@@ -2,10 +2,32 @@
   'use strict';
 
   const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
-  let getTodo = require('./get');
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
   module.exports.toggleCheck = (event, context, callback) => {
+
+    const eventData = JSON.parse(event.body);
+
+    // Check for valid "check"
+    if (!eventData.checked) {
+      console.error('\'no data.checked ->\'', 'no data.checked');
+      return;
+    }
+
+    // Check for valid "check"
+    if (typeof eventData.checked !== 'boolean') {
+      console.log('eventData ->', eventData);
+      console.log('eventData.checked ->', eventData.checked);
+      console.error('Invalid eventData');
+      callback(null, {
+        statusCode: 400,
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: 'Couldn\'t update todo item check status',
+      });
+      return;
+    }
 
     // Get id's current checked state
     const getParams = {
