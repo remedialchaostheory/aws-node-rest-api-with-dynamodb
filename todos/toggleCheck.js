@@ -72,10 +72,10 @@
     // Get todo item and switch checked status
     ddbHelper.getItemAttribute(event, callback, dynamoDb, 'checked')
         .on('success', (response) => {
-      console.log('resp.data.item ->', response.data.Item);
+      console.log('old checked status ->', response.data.Item);
       let data = response.data.Item;
       data.checked = !data.checked;  // Toggle checked status
-      console.log('data.checked after ->', data.checked);
+      console.log('new checked status ->', data.checked);
       toggleCheckStatus(data, callback);
     });
   };
