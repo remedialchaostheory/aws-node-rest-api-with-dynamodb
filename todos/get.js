@@ -7,8 +7,6 @@
 
   module.exports.get = (event, context, callback) => {
 
-    console.error('event', event);
-
     const params = {
       TableName: process.env.DYNAMODB_TABLE,
       Key: {
