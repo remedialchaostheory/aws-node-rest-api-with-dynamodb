@@ -3,6 +3,7 @@
 
   const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
+  const ddbHelper = require('./ddb-helper.js');
 
   module.exports.toggleCheck = (event, context, callback) => {
     const eventData = JSON.parse(event.body);
@@ -68,37 +69,15 @@
       return;
     }
 
-    // Get todo item
-    const ddbParams = {
-      TableName: process.env.DYNAMODB_TABLE,
-      Key: {
-        id: event.pathParameters.id,
-      },
-      AttributesToGet: [
-        'checked',
-      ],
-    };
-    dynamoDb.get(ddbParams, (error, result) => {
-      // Handle errors
-      if (error) {
-       console.error(error);
-       callback(null, {
-         statusCode: error.statusCode,
-         headers: { 'Content-Type': 'text/plain' },
-         body: 'Couldn\'t retrieve todo item',
-       });
-       return;
-      }
-    }).on('success', (response) => {
+    // Get todo item and switch checked status
+    ddbHelper.getItemAttribute(event, callback, dynamoDb, 'checked')
+        .on('success', (response) => {
       console.log('resp.data.item ->', response.data.Item);
-      console.log('resp.data.item.checked ->', response.data.Item.checked);
       let data = response.data.Item;
-      // Toggle checked status
-      data.checked = !data.checked;
+      data.checked = !data.checked;  // Toggle checked status
       console.log('data.checked after ->', data.checked);
       toggleCheckStatus(data, callback);
     });
-
-    };
+  };
 
 })();
