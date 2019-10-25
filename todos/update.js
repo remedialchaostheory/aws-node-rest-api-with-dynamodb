@@ -15,9 +15,6 @@
       console.log('typeof data.text ->', typeof data.text);
       // Check for valid text
       if (typeof data.text !== 'string') {
-        console.log('data ->', data);
-        console.log('data.text ->', data.text);
-        console.error('Invalid data');
         callback(null, {
           statusCode: 400,
           headers: { 'Content-Type': 'text/plain' },
@@ -25,13 +22,9 @@
         });
         return;
       }
+
       // Update text
-      function updateText(data) {
-
-      }
-
-      // DynamoDB parameters
-      const params = {
+      let ddbParams = {
         TableName: process.env.DYNAMODB_TABLE,
         Key: {
           id: event.pathParameters.id,
@@ -46,9 +39,7 @@
         UpdateExpression: 'SET #todo_text = :text, updatedAt = :updatedAt',
         ReturnValues: 'ALL_NEW',
       };
-
-      // Update item
-      dynamoDb.update(params, (error, result) => {
+      dynamoDb.update(ddbParams, (error, result) => {
         if (error) {
           console.error(error);
           callback(null, {
@@ -56,7 +47,7 @@
             headers: {
               'Content-Type': 'text/plain',
             },
-            body: 'Couldn\'t retrieve text data'
+            body: 'Couldn\'t update text data'
           });
           return;
         }
@@ -70,9 +61,7 @@
       });
     }
 
-
     if (data.checked !== undefined) {
-      // Update check status
       // Check for valid "check"
       if (typeof data.checked !== 'boolean') {
         callback(null, {
@@ -82,13 +71,9 @@
         });
         return;
       }
-      // Update checked
-      function updatechecked(data) {
 
-      }
-
-      // DynamoDB parameters
-      const checked_params = {
+      // Update item
+      let ddbParams = {
         TableName: process.env.DYNAMODB_TABLE,
         Key: {
           id: event.pathParameters.id,
@@ -100,9 +85,7 @@
         UpdateExpression: 'SET checked = :checked, updatedAt = :updatedAt',
         ReturnValues: 'ALL_NEW',
       };
-
-      // Update item
-      dynamoDb.update(checked_params, (error, result) => {
+      dynamoDb.update(ddbParams, (error, result) => {
         if (error) {
           console.error(error);
           callback(null, {
@@ -110,7 +93,7 @@
             headers: {
               'Content-Type': 'text/plain',
             },
-            body: 'Couldn\'t retrieve checked data'
+            body: 'Couldn\'t update checked data'
           });
           return;
         }
@@ -122,9 +105,6 @@
 
         callback(null, response);
       });
-
     }
-
   };
-
 })();
