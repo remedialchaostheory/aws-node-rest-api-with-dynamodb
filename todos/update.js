@@ -14,7 +14,7 @@
     if (data.text) {
       console.log('typeof data.text ->', typeof data.text);
       // Check for valid text
-      if (data.text && typeof data.text !== 'string') {
+      if (typeof data.text !== 'string') {
         console.log('data ->', data);
         console.log('data.text ->', data.text);
         console.error('Invalid data');
@@ -71,13 +71,10 @@
     }
 
 
-    if (data.checked) {
+    if (data.checked !== undefined) {
       // Update check status
       // Check for valid "check"
-      if (data.checked && typeof data.checked !== 'boolean') {
-        console.log('data ->', data);
-        console.log('data.checked ->', data.checked);
-        console.error('Invalid data');
+      if (typeof data.checked !== 'boolean') {
         callback(null, {
           statusCode: 400,
           headers: { 'Content-Type': 'text/plain' },
