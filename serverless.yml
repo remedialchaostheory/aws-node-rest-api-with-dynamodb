@@ -105,7 +105,11 @@ functions:
     handler: todos/update.update
     events:
       - http:
-          path: todos/{id}
+          path: todos/{id}/text
+          method: put
+          cors: true
+      - http:
+          path: todos/{id}/checked
           method: put
           cors: true
 
@@ -113,7 +117,7 @@ functions:
     handler: todos/toggleCheck.toggleCheck
     events:
       - http:
-          path: todos/{id}/check
+          path: todos/{id}/tcheck
           method: put
           cors: true
 
