@@ -4,15 +4,15 @@
   const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
 
   const dynamoDb = new AWS.DynamoDB.DocumentClient();
+  const ddbHelper = require('./ddb-helper');
 
   module.exports.update = (event, context, callback) => {
     const timeStamp = new Date().getTime();
     const data = JSON.parse(event.body);
-
     console.log('data ->', data);
 
+    // Handle text data
     if (data.text) {
-      console.log('typeof data.text ->', typeof data.text);
       // Check for valid text
       if (typeof data.text !== 'string') {
         callback(null, {
@@ -23,8 +23,15 @@
         return;
       }
 
+      // Get current text for todo item to log to lambda
+      ddbHelper.getItemAttribute(event, callback, dynamoDb, 'text')
+          .on('success', (response) => {
+            let data = response.data.Item;
+            console.log('old text ->', data.text);
+          });
+
       // Update text
-      let ddbParams = {
+      const ddbParams = {
         TableName: process.env.DYNAMODB_TABLE,
         Key: {
           id: event.pathParameters.id,
@@ -56,11 +63,13 @@
           statusCode: 200,
           body: JSON.stringify(result.Attributes),
         };
+        console.log('new text ->', data.text);
 
         callback(null, response);
       });
     }
 
+    // Handle checked data
     if (data.checked !== undefined) {
       // Check for valid "check"
       if (typeof data.checked !== 'boolean') {
