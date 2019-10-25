@@ -299,7 +299,7 @@
 			"name": "update.js",
 			"item": [
 				{
-					"name": "update.js - text only",
+					"name": "update.js - send \"text\": \"{{$randomVerb}} {{$randomNoun}}\"",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -373,7 +373,7 @@
 								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
 								"exec": [
 									"const id = '8a0d5500-f5eb-11e9-a42a-f1d3c8206b1d';",
-									"const text = \"CHANGED TEXT 9\";",
+									"const text = \"CHANGED TEXT 10\";",
 									"// Add a get request to retrieve the current \"text\" value to compare after",
 									"// e.g. current text != old text",
 									"pm.environment.set('id', id);",
@@ -468,7 +468,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"text\": true\n}"
+							"raw": "{\n\t\"text\": 123\n}"
 						},
 						"url": {
 							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/text",
