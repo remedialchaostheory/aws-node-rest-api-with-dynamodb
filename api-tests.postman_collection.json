@@ -1,0 +1,929 @@
+{
+	"info": {
+		"_postman_id": "33d7062f-e228-455e-ae54-207cf433dc5e",
+		"name": "aws-node-rest-api-with-dynamodb-dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "toggleCheck.js",
+			"item": [
+				{
+					"name": "toggleCheck.js - send {\"checked\": true}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9327fa65-de5d-48e9-9fc0-22a514fe9473",
+								"exec": [
+									"const id = '3f1bffb0-f5eb-11e9-a42a-f1d3c8206b1d';",
+									"pm.environment.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bc3cfa40-30d7-4932-b1b9-ad11a60b2f52",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": true\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/tcheck",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"tcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleCheck.js - send {\"checked\": false}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da8e1459-7709-47c3-b771-c339ab7830b8",
+								"exec": [
+									"const id = '414165d0-f5ed-11e9-a42a-f1d3c8206b1d';",
+									"pm.environment.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb1d62e4-0c3d-4e7a-8db6-1fde18817eb9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": false\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/tcheck",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"tcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleCheck.js - send {\"checked\": \"\"}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bc75547e-802c-479e-b4a8-c1cfc5bbb304",
+								"exec": [
+									"const id = '48f33990-f5eb-11e9-a42a-f1d3c8206b1d';",
+									"pm.environment.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "94c39a6b-5355-4e8b-ae6e-bbfd36958ed1",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Body is correct\", function () {",
+									"    pm.response.to.have.body(\"No event data\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": \"\"\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/tcheck",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"tcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleCheck.js - send {\"checked\": \"my string\"}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "351b19c3-8cff-436c-b08a-cef741cc45d6",
+								"exec": [
+									"const id = '5051f530-f5f2-11e9-957e-578c06358517';",
+									"pm.environment.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "43aaa0ef-d8b7-4035-a2c7-087c857fc86d",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"const bodyContent = \"Invalid data type\"",
+									"pm.test(bodyContent, function () {",
+									"    pm.response.to.have.body(bodyContent);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": \"my string\"\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/tcheck",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"tcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleCheck.js - send {\"checked\": 123}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "05f5f7b9-5f03-4377-b3f1-504a3a1a9e1e",
+								"exec": [
+									"const id = '79b9fdb0-f5ec-11e9-a42a-f1d3c8206b1d';",
+									"pm.environment.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f529455-4e5d-49f9-981e-885fa68a55ef",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"const bodyContent = \"Invalid data type\"",
+									"pm.test(bodyContent, function () {",
+									"    pm.response.to.have.body(bodyContent);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": 123\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/tcheck",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"tcheck"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "update.js",
+			"item": [
+				{
+					"name": "update.js - text only",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
+								"exec": [
+									"const id = '09c75990-f5eb-11e9-a42a-f1d3c8206b1d';",
+									"const text = \"CHANGED TEXT 9\";",
+									"// Add a get request to retrieve the current \"text\" value to compare after",
+									"// e.g. current text != old text",
+									"pm.environment.set('id', id);",
+									"pm.environment.set('text', text);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ceb5991-eec3-420d-970f-beab9bed26e0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const text = pm.variables.replaceIn('{{text}}');",
+									"pm.test(\"Text has been changed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.text).to.eql(text);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"{{text}}\"\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/text",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update.js - send \"text\": true",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
+								"exec": [
+									"const id = '8a0d5500-f5eb-11e9-a42a-f1d3c8206b1d';",
+									"const text = \"CHANGED TEXT 9\";",
+									"// Add a get request to retrieve the current \"text\" value to compare after",
+									"// e.g. current text != old text",
+									"pm.environment.set('id', id);",
+									"pm.environment.set('text', text);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ceb5991-eec3-420d-970f-beab9bed26e0",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"const error = \"Text data is not a string\";",
+									"pm.test(error, function () {",
+									"    pm.response.to.have.body(error);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": true\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/text",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update.js - send \"text\": 123",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
+								"exec": [
+									"const id = '81218860-f5f2-11e9-957e-578c06358517';",
+									"const text = \"CHANGED TEXT 9\";",
+									"// Add a get request to retrieve the current \"text\" value to compare after",
+									"// e.g. current text != old text",
+									"pm.environment.set('id', id);",
+									"pm.environment.set('text', text);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ceb5991-eec3-420d-970f-beab9bed26e0",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"const error = \"Text data is not a string\";",
+									"pm.test(error, function () {",
+									"    pm.response.to.have.body(error);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": true\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/text",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update.js - send \"checked\": false",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
+								"exec": [
+									"const id = '1aa74400-f5eb-11e9-a42a-f1d3c8206b1d';",
+									"const checked = false;",
+									"",
+									"pm.environment.set('id', id);",
+									"pm.environment.set('checked', checked);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ceb5991-eec3-420d-970f-beab9bed26e0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const checked = pm.variables.replaceIn('{{checked}}');",
+									"pm.test(\"Checked status is now \" + checked, function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.checked).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": {{checked}}\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/checked",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"checked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update.js - send \"checked\": true",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
+								"exec": [
+									"const id = '2276de50-f5fc-11e9-9e57-6f517d4a3fdb';",
+									"const checked = true;",
+									"",
+									"pm.environment.set('id', id);",
+									"pm.environment.set('checked', checked);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ceb5991-eec3-420d-970f-beab9bed26e0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const checked = pm.variables.replaceIn('{{checked}}');",
+									"pm.test(\"Checked status is now \" + checked, function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.checked).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"checked\": {{checked}}\n}"
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/checked",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}",
+								"checked"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "create.js",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad698a6e-3e0e-4384-83b9-230af2ccc387",
+						"exec": [
+							"// const newRandomTodo = pm.environment.replaceIn('{{$randomVerb}} {{$randomNoun}}');",
+							"// console.log('new random todo created ->', newRandomTodo);",
+							"// pm.environment.set('new random todo', newRandomTodo);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "66e56060-78f1-4151-a265-e4b9df18ac0e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// const newRandomTodo = pm.environment.replaceIn('{{new random todo}}');",
+							"// const todo = pm.variables.replaceIn('{{todo}}');",
+							"pm.test(\"New random todo created\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.text).to.eql(data.todo);",
+							"});",
+							"",
+							"pm.test(\"Checked boolean is false\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.checked).to.eql(false);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"{{todo}}\"\n}"
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list.js",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos"
+					]
+				},
+				"description": "LIST"
+			},
+			"response": []
+		},
+		{
+			"name": "get.js",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/cca22140-f535-11e9-8b13-4bcf1549e430",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos",
+						"cca22140-f535-11e9-8b13-4bcf1549e430"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update.js - text and \"checked\": false",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "db4fd9a2-493e-4b57-8546-0d28224f237d",
+						"exec": [
+							"const id = '231b5bb0-f5fc-11e9-9e57-6f517d4a3fdb';",
+							"const text = \"CHANGED TEXT 8\";",
+							"const checked = false;",
+							"",
+							"pm.environment.set('id', id);",
+							"pm.environment.set('text', text);",
+							"pm.environment.set('checked', checked);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb67e1a7-9e9d-401a-90d6-bf7c2a8d8a05",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const text = pm.variables.replaceIn('{{text}}');",
+							"pm.test(\"Text has been changed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.text).to.eql(text);",
+							"});",
+							"",
+							"const checked = pm.variables.replaceIn('{{checked}}');",
+							"pm.test(\"Checked status is now \" + checked, function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.checked).to.be.false;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"{{text}}\",\n\t\"checked\": {{checked}}\n}"
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update.js - text and \"checked\": true",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "db4fd9a2-493e-4b57-8546-0d28224f237d",
+						"exec": [
+							"const id = '3b4e07c0-f5eb-11e9-a42a-f1d3c8206b1d';",
+							"const text = \"CHANGED TEXT 8\";",
+							"const checked = true;",
+							"",
+							"pm.environment.set('id', id);",
+							"pm.environment.set('text', text);",
+							"pm.environment.set('checked', checked);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb67e1a7-9e9d-401a-90d6-bf7c2a8d8a05",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const text = pm.variables.replaceIn('{{text}}');",
+							"pm.test(\"Text has been changed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.text).to.eql(text);",
+							"});",
+							"",
+							"const checked = pm.variables.replaceIn('{{checked}}');",
+							"pm.test(\"Checked status is now \" + checked, function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.checked).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"{{text}}\",\n\t\"checked\": {{checked}}\n}"
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
