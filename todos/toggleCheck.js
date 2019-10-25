@@ -74,6 +74,9 @@
       Key: {
         id: event.pathParameters.id,
       },
+      AttributesToGet: [
+        'checked',
+      ],
     };
     dynamoDb.get(ddbParams, (error, result) => {
       // Handle errors
