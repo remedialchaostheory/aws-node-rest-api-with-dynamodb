@@ -8,16 +8,17 @@
 
 **Postman**: API testing
 
-Built from scratch based on their [example](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). The Serverless team created it to be a guide or proof of concept, so it's purposely bare bones. It's incredible how they have so many different types of examples up (it's at *least* 30).
+Built from scratch based on their [example](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). The Serverless team created it to be a guide or proof of concept, so it's purposely bare bones. It's still incredible how they have so many different types of examples up for the framework(it's at *least* 30).
 
-I expanded on the project with following improvements/additions:
+## Improvements/Additions
+
 * Issue: the PUT method in update.js required both "text" and "checked" keys in request body
     * Resolution: split up endpoint from `/todos/{id}` to `/todos/{id}/text` and `/todos/{id}/checked`<br>
     
 * Issue: Get requests for an invalid or nonexistent todo ID returned status 200.
     * Resolution: now returns 403 Forbidden to hide existence of a resource from unauthorized user.<br>
     
-* Rather than forcing a certain "checked" state, I added an endpoint to toggle `/todos/{id}/tcheck`
+* Rather than forcing a certain "checked" state, I added an endpoint to toggle it `/todos/{id}/tcheck`
 
 * Refactored DynamoDB calls into a helper function to get the todo item's original data before being overwritten (for logging and potential history purposes)
 
