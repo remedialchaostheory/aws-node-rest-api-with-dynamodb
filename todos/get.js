@@ -15,8 +15,6 @@
     };
 
     dynamoDb.get(params, (error, result) => {
-
-      console.error(error);
       // Handle errors
       if (error) {
        console.error(error);
@@ -28,11 +26,20 @@
        return;
       }
 
-      // Response
-      const response = {
-        statusCode: 200,
-        body: JSON.stringify(result.Item),
-      };
+      // Handle invalid or nonexistent item
+      let response;
+      if (!result.Item) {
+        console.error('result.Item ->', result.Item);
+        response = {
+          statusCode: 403,
+          body: '403 error',
+        };
+      } else {
+        response = {
+          statusCode: 200,
+          body: JSON.stringify(result.Item),
+        };
+      }
 
       callback(null, response);
     });

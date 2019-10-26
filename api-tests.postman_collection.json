@@ -296,22 +296,45 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "update.js",
+			"name": "get.js",
 			"item": [
 				{
-					"name": "update.js - send \"text\": \"{{$randomVerb}} {{$randomNoun}}\"",
+					"name": "get.js - send valid req",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ed4da2ad-edf1-405e-8106-7c086e158e33",
+								"id": "821b6917-4685-4c87-a212-1a8807182ccc",
 								"exec": [
-									"const id = '09c75990-f5eb-11e9-a42a-f1d3c8206b1d';",
-									"const text = \"CHANGED TEXT 9\";",
-									"// Add a get request to retrieve the current \"text\" value to compare after",
-									"// e.g. current text != old text",
-									"pm.environment.set('id', id);",
-									"pm.environment.set('text', text);"
+									"// Create a new todo and set its ID and text as an env variable",
+									"const randText = pm.environment.replaceIn(\"{{$randomVerb}} {{$randomNoun}}\");",
+									"const createTempTodo = {",
+									"  url: 'https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos',",
+									"  method: 'POST',",
+									"  header: 'headername1:value1',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: {",
+									"        \"text\": randText",
+									"    },",
+									"  }",
+									"};",
+									"pm.sendRequest(createTempTodo, function (error, response) {",
+									"    if (error) {",
+									"        console.log(error)",
+									"    } else {",
+									"        console.log('resp.json ->', response.json());",
+									"        // Set ID",
+									"        const id = response.json().id;",
+									"        console.log('id ->', id);",
+									"        pm.environment.set('id', id);",
+									"        // Set text",
+									"        const text = response.json().text;",
+									"        console.log('text ->', text);",
+									"        pm.environment.set('text', text);",
+									"    }",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -319,18 +342,229 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0ceb5991-eec3-420d-970f-beab9bed26e0",
+								"id": "e3084ce4-2402-4b2d-9075-d51156052c86",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"  ",
+									"pm.test(\"Id is same\", function () {",
+									"    const id = pm.environment.replaceIn('{{id}}');",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(id);",
+									"});",
+									"",
+									"pm.test(\"Text is same\", function () {",
+									"    const text = pm.environment.replaceIn('{{text}}');",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData.text, '===', text);",
+									"    pm.expect(jsonData.text).to.eql(text);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get.js - send invalid req",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "821b6917-4685-4c87-a212-1a8807182ccc",
+								"exec": [
+									"const id = 'xxxidontexistxxx';",
+									"pm.environment.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e3084ce4-2402-4b2d-9075-d51156052c86",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"const text = pm.variables.replaceIn('{{text}}');",
-									"pm.test(\"Text has been changed\", function () {",
+									"pm.test(\"Text is same\", function () {",
 									"    var jsonData = pm.response.json();",
+									"    console.log('jsondata', jsonData);",
 									"    pm.expect(jsonData.text).to.eql(text);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "update.js",
+			"item": [
+				{
+					"name": "list.js",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos"
+							]
+						},
+						"description": "LIST"
+					},
+					"response": []
+				},
+				{
+					"name": "update.js - send \"text\": \"{{$randomVerb}} {{$randomNoun}}\"",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5160ad7a-0d8b-4acc-a9a3-962c76c04157",
+								"exec": [
+									"const id = '09c75990-f5eb-11e9-a42a-f1d3c8206b1d';",
+									"const newText = pm.environment.replaceIn(\"{{$randomVerb}} {{$randomNoun}}\");",
+									"",
+									"// Retrieves original (aka old) text from todo item to compare in test",
+									"pm.sendRequest(\"https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/\"+ id, function (error, response) {",
+									"    if (error) {",
+									"        console.log(error);",
+									"    } else {",
+									"        console.log('resp.json ->', response.json());",
+									"        const oldText = response.json().text;",
+									"        console.log('oldText ->', oldText);",
+									"        pm.environment.set('oldText', oldText);",
+									"    }",
 									"});",
 									"",
+									"pm.environment.set('id', id);",
+									"pm.environment.set('newText', newText);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "05d22a3c-dda8-4b46-98cc-545bc127c124",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const newText = pm.variables.replaceIn('{{newText}}');",
+									"pm.test(\"Text has been updated correctly\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.text).to.eql(newText);",
+									"});",
+									"",
+									"const oldText = pm.variables.replaceIn('{{oldText}}');",
+									"pm.test(\"Text is not the same\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.text).to.not.eql(oldText);",
+									"});",
+									"",
+									"console.log('Changed from: \"', oldText, '\" to \"', newText, '\"');",
 									""
 								],
 								"type": "text/javascript"
@@ -342,7 +576,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"text\": \"{{text}}\"\n}"
+							"raw": "{\n\t\"text\": \"{{newText}}\"\n}"
 						},
 						"url": {
 							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}/text",
@@ -696,82 +930,6 @@
 			"response": []
 		},
 		{
-			"name": "list.js",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos",
-					"protocol": "https",
-					"host": [
-						"glh3x7xjak",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"dev",
-						"todos"
-					]
-				},
-				"description": "LIST"
-			},
-			"response": []
-		},
-		{
-			"name": "get.js",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/cca22140-f535-11e9-8b13-4bcf1549e430",
-					"protocol": "https",
-					"host": [
-						"glh3x7xjak",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"dev",
-						"todos",
-						"cca22140-f535-11e9-8b13-4bcf1549e430"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "update.js - text and \"checked\": false",
 			"event": [
 				{
@@ -795,20 +953,13 @@
 					"script": {
 						"id": "bb67e1a7-9e9d-401a-90d6-bf7c2a8d8a05",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
 							"});",
 							"",
-							"const text = pm.variables.replaceIn('{{text}}');",
-							"pm.test(\"Text has been changed\", function () {",
+							"pm.test(\"Your test name\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.text).to.eql(text);",
-							"});",
-							"",
-							"const checked = pm.variables.replaceIn('{{checked}}');",
-							"pm.test(\"Checked status is now \" + checked, function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.checked).to.be.false;",
+							"    pm.expect(jsonData.message).to.eql(\"Missing Authentication Token\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -905,6 +1056,80 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"text\": \"{{text}}\",\n\t\"checked\": {{checked}}\n}"
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete.js",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4a582701-700a-4867-9681-c875e6d32c0d",
+						"exec": [
+							"// Create a new todo and set its ID as an env variable",
+							"const createTempTodo = {",
+							"  url: 'https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos',",
+							"  method: 'POST',",
+							"  header: 'headername1:value1',",
+							"  body: {",
+							"    mode: 'raw',",
+							"    raw: {",
+							"        \"text\": \"I'm going to be deleted.. nooo.\"",
+							"    },",
+							"  }",
+							"};",
+							"pm.sendRequest(createTempTodo, function (error, response) {",
+							"    if (error) {",
+							"        console.log(error)",
+							"    } else {",
+							"        console.log('resp.json ->', response.json());",
+							"        const id = response.json().id;",
+							"        console.log('id ->', id);",
+							"        pm.environment.set('id', id);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d2905da-d293-4b6d-a077-9027d42c8f8a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"url": {
 					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
