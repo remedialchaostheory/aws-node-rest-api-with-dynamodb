@@ -17,3 +17,64 @@ Based on their [example](https://github.com/serverless/examples/tree/master/aws-
     
 * Rather than forcing a certain "checked" state, I added an endpoint to toggle `/todos/{id}/tcheck`
 
+
+##API Calls
+
+Note: `glh3x7xjak` can be replaced with your own API Gateway ID
+
+**Create todo item**
+
+POST request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos`
+
+Body:<br>
+`{ "text": "<your todo text>" }`
+
+**List all todos**
+
+GET request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos`
+
+Body:<br>
+`<none>`
+
+**Get a todo**
+
+GET request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>`
+
+Body:<br>
+`<none>`
+
+**Update a todo's text**
+
+PUT request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/text`
+
+Body:<br>
+`{ "text": "<your new todo text>" }`
+
+**Update a todo's "checked" (aka done) status**
+
+PUT request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/check`
+
+Body:<br>
+`{ "checked": true }` or `{ "checked": false }`
+
+**Toggle a todo's "checked" (aka done) status**
+
+PUT request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/tcheck`
+
+Body:<br>
+`<none>`
+
+**Delete a todo**
+
+PUT request:<br>
+`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>`
+
+Body:<br>
+`<none>`
+
