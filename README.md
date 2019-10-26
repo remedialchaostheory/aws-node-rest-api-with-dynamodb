@@ -113,10 +113,10 @@ All tests can be run in isolation. Each has a pre-request script that are invoke
 Tests will generate a *random verb* and *random noun* to send the body of the request for creating/updating todo items.
 For example, to test an update call to the API, it will send something like `{ "text": "navigate pixel" }` or `{ "text": "synthesize monitor" }`, which I thought was fun.
 
-I included a simple bash script that will deploy a function (a JavaScript file) and then run the associated tests.<br>
-`./deploy-and-test-function.sh <javascript file>` (do not include `.js` extension)<br>
+I included a simple bash script that will deploy a Lambda function (JavaScript file) and then run the associated tests.<br>
+`./deploy-and-test-function.sh <javascript file>` (do not include the `.js` extension)<br>
 
-For example, if you made changes to `create.js` and wanted to deploy those changes to AWS and immediately run tests:
+For example, if you made changes to `create.js` and wanted to deploy that Lambda function to AWS and immediately run tests:
 `./deploy-and-test-function.sh create`<br>
 If you get a permissions error, type `chmod 0755 deploy-and-test-function.sh` to allow anyone to execute the script.
 
