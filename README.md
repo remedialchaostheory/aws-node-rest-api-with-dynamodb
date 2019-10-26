@@ -118,7 +118,10 @@ Data:<br>
 The Postman test collection is located in `api-tests.postman_collection.json`
 
 You can import the file into Postman's native app or run it via command line:<br>
-`newman run api-tests.postman_collection.json` (This will run all tests)
+```
+newman run api-tests.postman_collection.json
+```
+(this will run all tests)
 
 One thing to note is that within a Postman test collection, there are folders that can contain requests.
 Within those requests are the tests.<br>
@@ -128,10 +131,14 @@ Each API call has its own JavaScript file in `/todos`. Test requests are grouped
 E.g: `api-tests.postman_collection.json > create.js > Requests > Test(s)`
 
 To run a test for a specific API call/JavaScript file from the command line, enter:<br>
-`newman run api-tests.postman_collection.json --folder <collection folder name>.js`
+```
+newman run api-tests.postman_collection.json --folder <collection folder name>.js
+```
 
 For example, if you wanted to run all the tests for `create.js`:<br>
-`newman run api-tests.postman_collection.json --folder create.js`<br>
+```
+newman run api-tests.postman_collection.json --folder create.js
+```
 Note: The collection folder&mdash;in this case, `create.js`&mdash;can be named anything. I just decided to keep it the same as the file name for clarity.
 
 All tests can be run in isolation. Each has a pre-request script that are invoked to set up environment variables (e.g. id, text data, etc).
