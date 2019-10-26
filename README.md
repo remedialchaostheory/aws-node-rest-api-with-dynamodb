@@ -108,7 +108,7 @@ Note: The collection folder&mdash;in this case, `create.js`&mdash;can be named a
 
 All tests can be run in isolation. Each has a pre-request script that are invoked to set up environment variables (e.g. id, text data, etc).
 
-## Automate Deployment and Testing
+## Automating Deployment and Testing
 
 Tests will generate a *random verb* and *random noun* to send the body of the request for creating/updating todo items.
 For example, to test an update call to the API, it will send something like `{ "text": "navigate pixel" }` or `{ "text": "synthesize monitor" }`, which I thought was fun.
@@ -124,3 +124,12 @@ Only takes 1 positional argument (as of this writing). Either plan to use a for 
 
 *Remember*: If you made any changes to the `serverless.yml` file, those changes won't be included when you use the deploy function method. You need to run a full `sls deploy -v` instead. Refer back to the original [project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb) for more info.
 
+## Testing and Debugging
+
+A major issue for serverless apps has always been testing. Deploying the entire application during development is not ideal. Even if you're deploying a single lambda function, which is *much* faster, it still interrupts your workflow.
+
+Of course, testing Lambda functions locally is ideal. Tooling for this is still currently in development, so here are a couple options:
+
+1. The Serverless Framework has [`invoke local`](https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/). It merely emulates an AWS environment, so it's not exactly perfect. Probably suitable enough though.
+
+2. An alternative is to use the [`serverless-sam`](https://github.com/sapessi/serverless-sam) plugin. It will convert your `serverless.yml` template to a [SAM](https://aws.amazon.com/serverless/sam/) template (CloudFormation template). With AWS SAM you can [locally test and debug](https://docs.aws.amazon.com/en_pv/serverless-application-model/latest/developerguide/serverless-test-and-debug.html) your app.
