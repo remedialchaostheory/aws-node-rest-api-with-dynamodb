@@ -6,6 +6,7 @@
   const ddbHelper = require('./ddb-helper.js');
 
   module.exports.toggleCheck = (event, context, callback) => {
+    // TODO - don't need to check event body. need to delete corresponding code
     const eventData = JSON.parse(event.body);
 
     function toggleCheckStatus(data, callback) {
@@ -50,6 +51,8 @@
     }
 
     // Check for empty data
+    // eventData.checked can === false, so can't check against that
+    // TODO - may be able to to make this more succinct
     if (eventData.checked === '' || eventData.checked === null || eventData.checked === undefined) {
       callback(null, {
         statusCode: 400,
