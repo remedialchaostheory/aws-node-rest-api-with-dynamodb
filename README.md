@@ -4,7 +4,7 @@
 
 **AWS**: Lambda, API Gateway, DynamoDB
 
-**Serverless Framework**: Nodejs runtime
+**Serverless Framework**: Nodejs runtime, CloudFormation
 
 **Postman**: API testing
 
@@ -19,12 +19,11 @@ I expanded on the project with following improvements/additions:
     
 * Rather than forcing a certain "checked" state, I added an endpoint to toggle `/todos/{id}/tcheck`
 
-##Set up and Usage
+## Set up and Usage
 
 Same as their [project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). I did change the API calls so that's up next.
 
-##API Calls
-
+## API Calls<br>
 Note: `glh3x7xjak` can be replaced with your own API Gateway ID
 
 **Create todo item**
@@ -83,10 +82,9 @@ PUT request:<br>
 Body:<br>
 `<none>`
 
-##API Testing
+## API Testing
 
 The Postman test collection is located in `api-tests.postman_collection.json`
 
 You can import the file into Postman's native app or run it via command line:<br>
-`newman run api-tests.postman_collection.json --folder $1.js
-`
+`newman run api-tests.postman_collection.json --folder api-tests.postman_collection.js`
