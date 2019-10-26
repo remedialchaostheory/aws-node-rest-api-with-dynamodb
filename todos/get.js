@@ -29,7 +29,7 @@
       // Handle invalid or nonexistent item
       let response;
       if (!result.Item) {
-        console.error('result.Item ->', result.Item);
+        console.error('result.Item invalid ->', result.Item);
         response = {
           statusCode: 403,
           body: '403 error',
