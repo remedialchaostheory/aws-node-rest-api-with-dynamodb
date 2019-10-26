@@ -420,15 +420,15 @@
 							"script": {
 								"id": "e3084ce4-2402-4b2d-9075-d51156052c86",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
 									"});",
 									"",
-									"pm.test(\"Text is same\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    console.log('jsondata', jsonData);",
-									"    pm.expect(jsonData.text).to.eql(text);",
-									"});"
+									"// pm.test(\"Text is same\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     console.log('jsondata', jsonData);",
+									"//     pm.expect(jsonData.text).to.eql(text);",
+									"// });"
 								],
 								"type": "text/javascript"
 							}
@@ -476,44 +476,6 @@
 		{
 			"name": "update.js",
 			"item": [
-				{
-					"name": "list.js",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos",
-							"protocol": "https",
-							"host": [
-								"glh3x7xjak",
-								"execute-api",
-								"us-east-1",
-								"amazonaws",
-								"com"
-							],
-							"path": [
-								"dev",
-								"todos"
-							]
-						},
-						"description": "LIST"
-					},
-					"response": []
-				},
 				{
 					"name": "update.js - send \"text\": \"{{$randomVerb}} {{$randomNoun}}\"",
 					"event": [
@@ -854,6 +816,104 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "delete.js",
+			"item": [
+				{
+					"name": "delete.js",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4a582701-700a-4867-9681-c875e6d32c0d",
+								"exec": [
+									"// Create a new todo and set its ID as an env variable",
+									"const createTempTodo = {",
+									"  url: 'https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos',",
+									"  method: 'POST',",
+									"  header: 'headername1:value1',",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: {",
+									"        \"text\": \"I'm going to be deleted.. nooo.\"",
+									"    },",
+									"  }",
+									"};",
+									"pm.sendRequest(createTempTodo, function (error, response) {",
+									"    if (error) {",
+									"        console.log(error)",
+									"    } else {",
+									"        console.log('resp.json ->', response.json());",
+									"        const id = response.json().id;",
+									"        console.log('id ->', id);",
+									"        pm.environment.set('id', id);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d2905da-d293-4b6d-a077-9027d42c8f8a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Test for 403 status when retrieving deleted item",
+									"const id = pm.environment.replaceIn('{{id}}');",
+									"pm.test(\"Deleted todo ID does not exist\", function () {",
+									"    const getDeletedId = {",
+									"      url: 'https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/' + id,",
+									"      method: 'GET',",
+									"      header: 'headername1:value1',",
+									"    };",
+									"    pm.sendRequest(getDeletedId, function (error, response) {",
+									"        if (error) {",
+									"            console.log('error ->', error);",
+									"        } else {",
+									"            console.log('resp ->', response);",
+									"            pm.expect(response.code).to.eql(403);",
+									"        }",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
+							"protocol": "https",
+							"host": [
+								"glh3x7xjak",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"todos",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "create.js",
 			"event": [
 				{
@@ -926,6 +986,44 @@
 						"todos"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "list.js",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos",
+					"protocol": "https",
+					"host": [
+						"glh3x7xjak",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"todos"
+					]
+				},
+				"description": "LIST"
 			},
 			"response": []
 		},
@@ -1056,80 +1154,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"text\": \"{{text}}\",\n\t\"checked\": {{checked}}\n}"
-				},
-				"url": {
-					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
-					"protocol": "https",
-					"host": [
-						"glh3x7xjak",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"dev",
-						"todos",
-						"{{id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete.js",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "4a582701-700a-4867-9681-c875e6d32c0d",
-						"exec": [
-							"// Create a new todo and set its ID as an env variable",
-							"const createTempTodo = {",
-							"  url: 'https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos',",
-							"  method: 'POST',",
-							"  header: 'headername1:value1',",
-							"  body: {",
-							"    mode: 'raw',",
-							"    raw: {",
-							"        \"text\": \"I'm going to be deleted.. nooo.\"",
-							"    },",
-							"  }",
-							"};",
-							"pm.sendRequest(createTempTodo, function (error, response) {",
-							"    if (error) {",
-							"        console.log(error)",
-							"    } else {",
-							"        console.log('resp.json ->', response.json());",
-							"        const id = response.json().id;",
-							"        console.log('id ->', id);",
-							"        pm.environment.set('id', id);",
-							"    }",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "7d2905da-d293-4b6d-a077-9027d42c8f8a",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
 				},
 				"url": {
 					"raw": "https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/{{id}}",
