@@ -8,7 +8,9 @@
 
 **Postman**: API testing
 
-Based on their [example](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb) but with the following improvements/additions:
+Built from scratch based on their [example](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). The Serverless team created it to be a guide or proof of concept, so it's purposely bare bones. It's incredible how they have so many different types of examples up (it's at *least* 30).
+
+I expanded on the project with following improvements/additions:
 * Issue: the PUT method in update.js required both "text" and "checked" keys in request body
     * Resolution: split up endpoint from `/todos/{id}` to `/todos/{id}/text` and `/todos/{id}/checked`
     
@@ -17,6 +19,9 @@ Based on their [example](https://github.com/serverless/examples/tree/master/aws-
     
 * Rather than forcing a certain "checked" state, I added an endpoint to toggle `/todos/{id}/tcheck`
 
+##Set up and Usage
+
+Same as their [project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). I did change the API calls so that's up next.
 
 ##API Calls
 
@@ -78,3 +83,10 @@ PUT request:<br>
 Body:<br>
 `<none>`
 
+##API Testing
+
+The Postman test collection is located in `api-tests.postman_collection.json`
+
+You can import the file into Postman's native app or run it via command line:<br>
+`newman run api-tests.postman_collection.json --folder $1.js
+`
