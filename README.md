@@ -32,58 +32,86 @@ Note: `glh3x7xjak` will be replaced with your own API Gateway ID. I left mine in
 **Create todo item**
 
 POST request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos
+```
 
 Data:<br>
-`{ "text": "<your todo>" }`
+```
+{ "text": "<your todo>" }
+```
 
 **List all todos**
 
 GET request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos
+```
 
 Data:<br>
-`<none>`
+```
+<none>
+```
 
 **Get a todo**
 
 GET request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>
+```
 
 Data:<br>
-`<none>`
+```
+<none>
+```
 
 **Update a todo's text**
 
 PUT request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/text`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/text
+```
 
 Data:<br>
-`{ "text": "<your new todo text>" }`
+```
+{ "text": "<your new todo text>" }
+```
 
 **Update a todo's "checked" (aka done) status**
 
 PUT request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/check`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/check
+```
 
 Data:<br>
-`{ "checked": true }` or `{ "checked": false }`
+```
+{ "checked": true }` or `{ "checked": false }
+```
 
 **Toggle a todo's "checked" (aka done) status**
 
 PUT request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/tcheck`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/tcheck
+```
 
 Data:<br>
-`<none>`
+```
+<none>
+```
 
 **Delete a todo**
 
 PUT request:<br>
-`https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>`
+```
+https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>
+```
 
 Data:<br>
-`<none>`
+```
+<none>
+```
 
 ## API Testing
 
@@ -130,6 +158,6 @@ A major issue for serverless apps has always been testing. Deploying the entire 
 
 Of course, testing Lambda functions locally is ideal. Tooling for this is still currently in development, so here are a couple options:
 
-1. The Serverless Framework has [`invoke local`](https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/). It merely emulates an AWS environment, so it's not exactly perfect. Probably suitable enough though.
+1. The Serverless Framework has [`sls invoke local --function <your function>`](https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/). It merely emulates an AWS environment, so it's not exactly perfect. Probably suitable enough though.
 
 2. An alternative is to use the [`serverless-sam`](https://github.com/sapessi/serverless-sam) plugin. It will convert your `serverless.yml` template to a [SAM](https://aws.amazon.com/serverless/sam/) template (CloudFormation template). With AWS SAM you can [locally test and debug](https://docs.aws.amazon.com/en_pv/serverless-application-model/latest/developerguide/serverless-test-and-debug.html) your app.
