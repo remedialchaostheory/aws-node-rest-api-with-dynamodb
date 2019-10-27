@@ -24,7 +24,7 @@ REST API for a todo app. Built from scratch (and improved) based on their [origi
 
 ## Setup and Usage
 
-Please refer to their [original project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). I changed a few of the API calls, so I'll give you a complete list next.
+Please refer to their [original project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). I changed a few of the endpoints, so I'll give you a complete list of them next.
 
 ## API Calls<br>
 Note: `glh3x7xjak` will be replaced with your own API Gateway ID. I left mine in for you to test it out.
