@@ -146,6 +146,7 @@ All tests can be run in isolation. Each has a pre-request script that are invoke
 ## Automating Deployment and Testing
 
 Tests will generate a *random verb* and *random noun* to send the body of the request for creating/updating todo items.
+
 For example, to test an update call to the API, it will send something like `{ "text": "navigate pixel" }` or `{ "text": "synthesize monitor" }`, which I thought was fun.
 
 I included a simple bash script that will deploy a Lambda function (JavaScript file) and then run the associated tests.<br>
