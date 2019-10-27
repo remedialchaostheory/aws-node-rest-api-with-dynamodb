@@ -86,7 +86,7 @@ https://glh3x7xjak.execute-api.us-east-1.amazonaws.com/dev/todos/<id>/check
 
 Data:<br>
 ```
-{ "checked": true }` or `{ "checked": false }
+{ "checked": true } or { "checked": false }
 ```
 
 **Toggle a todo's "checked" (aka done) status**
