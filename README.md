@@ -2,6 +2,18 @@
 
 <a href="https://aws.amazon.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/640px-Amazon_Web_Services_Logo.svg.png" alt="aws logo" height="100"/></a><a href="https://serverless.com"><img src="https://files.readme.io/ffb4c59-Serverless.png" alt="serverless framework logo" height="100"/></a><a href="https://www.getpostman.com/"><img src="https://logodix.com/logo/2062933.png" alt="postman logo" height="100"/></a>
 
+## Table of Contents
+
+1. [Intro](#intro)
+2. [Improvements/Additions](#improvementsadditions)
+3. [Setup and Usage](#setup-and-usage)
+4. [API Testing](#api-testing)
+5. [Automating Deployment and Testing](#automating-deployment-and-testing)
+6. [Testing and Debugging](#testing-and-debugging)
+
+
+## Intro
+
 **AWS**: Lambda, API Gateway, DynamoDB
 
 **Serverless Framework**: Nodejs runtime, CloudFormation
