@@ -8,11 +8,7 @@
 
 **Postman**: API testing
 
-<<<<<<< HEAD
-REST API for a todo app. Built from scratch (and improved) based on their [original project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb). The Serverless team created it to be a guide or proof of concept, so it was purposely bare bones. It's still incredible how they have so many different types of examples up for the framework(it's at _least_ 30).
-=======
-REST API for a todo app. Built from scratch (and improved) using [original project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb) as a reference. The Serverless team created it to be a guide or proof of concept, so it was purposely bare bones. It's still incredible how they have so many different types of examples up for the framework(it's at *least* 30).
->>>>>>> dfadd67e671cd2b6f0fa60c92e8723d3bea37bec
+REST API for a todo app. Built from scratch (and improved) using [original project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb) as a reference. The Serverless team created it to be a guide or proof of concept, so it was purposely bare bones. It's still incredible how they have so many different types of examples up for the framework(it's at _least_ 30).
 
 ## Improvements/Additions
 
