@@ -159,7 +159,7 @@ If you wanted to run all the tests for `create.js`,<br>
 newman run api-tests.postman_collection.json --folder create.js
 ```
 
-Note:<br>
+_Note_:<br>
 The collection folder&mdash;in this case, `create.js`&mdash;can be named anything. I just decided to keep it the same as the file name for clarity.
 
 All tests can be run in isolation. Each has a pre-request script that are invoked to set up environment variables (e.g. id, text data, etc).
