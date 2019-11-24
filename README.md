@@ -26,7 +26,7 @@ Please refer to their [original project](https://github.com/serverless/examples/
 
 ## API Calls<br>
 
-Note:<br>
+_Note_:<br>
 `glh3x7xjak` will be replaced with your own API Gateway ID. I left mine in for you to test it out.
 
 **Create todo item**
