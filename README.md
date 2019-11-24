@@ -26,7 +26,8 @@ Please refer to their [original project](https://github.com/serverless/examples/
 
 ## API Calls<br>
 
-Note: `glh3x7xjak` will be replaced with your own API Gateway ID. I left mine in for you to test it out.
+Note:<br>
+`glh3x7xjak` will be replaced with your own API Gateway ID. I left mine in for you to test it out.
 
 **Create todo item**
 
@@ -151,14 +152,14 @@ To run a test for a specific API call/JavaScript file from the command line, ent
 newman run api-tests.postman_collection.json --folder <collection folder name>.js
 ```
 
-_For example_:
+_For example_:<br>
 If you wanted to run all the tests for `create.js`,<br>
 
 ```
 newman run api-tests.postman_collection.json --folder create.js
 ```
 
-Note:
+Note:<br>
 The collection folder&mdash;in this case, `create.js`&mdash;can be named anything. I just decided to keep it the same as the file name for clarity.
 
 All tests can be run in isolation. Each has a pre-request script that are invoked to set up environment variables (e.g. id, text data, etc).
@@ -167,20 +168,20 @@ All tests can be run in isolation. Each has a pre-request script that are invoke
 
 Tests will generate a _random verb_ and _random noun_ to send the body of the request for creating/updating todo items.
 
-_For example_:
+_For example_:<br>
 To test an update call to the API, it will send something like `{ "text": "navigate pixel" }` or `{ "text": "synthesize monitor" }`, which I thought was fun.
 
 I included a simple bash script that will deploy a Lambda function (JavaScript file) and then run the associated tests.<br>
 `./deploy-and-test-function.sh <javascript file>` (do not include the `.js` extension)<br>
 
-_For example_:
+_For example_:<br>
 If you made changes to `create.js` and wanted to deploy that Lambda function to AWS and immediately run tests:
 `./deploy-and-test-function.sh create`<br>
 If you get a permissions error, type `chmod 0755 deploy-and-test-function.sh` to allow anyone to execute the script.
 
 Only takes 1 positional argument (as of this writing). Either plan to use a for loop or flag arguments. I never needed to deploy and test more than one at a time so it wasn't needed.
 
-_Remember_:
+_Remember_:<br>
 If you made any changes to the `serverless.yml` file, those changes won't be included when you use the deploy function method. You need to run a full `sls deploy -v` instead. Refer back to the original [project](https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb) for more info.
 
 ## Testing and Debugging
